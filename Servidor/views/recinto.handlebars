@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"/>
+	<title>¿Quién anda ahí?</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+
+</head>
+<body>
+
+	<form id="form">
+	<table>
+		<tr>
+			<td></td>
+			<td colspan="3" align="center">Cantidad</td>
+		</tr>
+		<tr>
+			<td>Mujeres</td>
+			<td>
+				<button type="submit" id="mujeresMas" onclick="enviarDato('mujeresMas')">+</button></td>
+			<td id="cantidadMujeres"></td>
+			<td>
+				<button type="submit" id="mujeresMenos" onclick="enviarDato('mujeresMenos')">-</button></td>
+		</tr>
+
+		<tr>
+			<td>Hombres</td>
+			<td><button type="submit" id="hombresMas" onclick="enviarDato('hombresMas')">+</button></td>
+			<td id="cantidadHombres"></td>
+			<td>
+				<button type="submit" id="hombresMenos" onclick="enviarDato('hombresMenos')">-</button></td>
+		</tr>
+	</table>
+	</form>
+
+<script type="text/javascript">
+
+	var recinto = {{recinto}};
+	console.log(recinto);
+	var mujeres="";
+	var hombres="";
+	var socket = io();
+	
+
+	  
+	function cantidades(){
+		
+		var cantidades=$.getJSON("/cantidadRecinto/"+recinto,function(data){
+		 
+ 			mujeres = data[0].Mujeres;
+ 			hombres = data[0].Hombres;
+   
+
+			document.getElementById("cantidadMujeres").innerHTML = mujeres;	
+			document.getElementById("cantidadHombres").innerHTML = hombres;	
+		
+		});	
+
+
+	}
+
+	cantidades();
+
+	function enviarDato(dato){
+
+		
+
+		$.post("/modificarCantidadRecinto/" + dato + "/" + recinto);
+		
+
+	
+	  
+	   //	location.reload();
+
+	}
+	
+  	socket.on('cambiorecinto', function(msg){
+  		if(msg.columna == "Mujeres")
+  			{
+  				document.getElementById("cantidadMujeres").innerHTML = msg.numero;
+  			}
+  	 	 else{
+			document.getElementById("cantidadHombres").innerHTML = msg.numero;
+			}	
+ 	 });
+	</script>
+
+</body>
+</html>

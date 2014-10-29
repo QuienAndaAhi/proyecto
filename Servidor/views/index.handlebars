@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>¿Quíen anda ahí?</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<link rel="stylesheet" type="text/css" href="../css/login.css" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true_or_false"></script>
+	<script type="text/javascript" src="js/jquery.geocomplete.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+	<script type="text/javascript" src="gmap3-master/dist/gmap3.min.js"></script>
+	<script type="text/javascript" src="js/registro.js"></script>
+
+</head>
+<body>
+
+<div class="contenido">
+	<div id="cabecera">
+		<header>
+			<div id="logo"><img src="Imagenes/logo.png"></div>
+
+		<!-- Login -->
+			<div id="toppanel">
+				<div id="panel">
+					<div class="content clearfix">
+						<div class="left">
+							<h1>Bienvenidos a ¿Quíen anda ahí?</h1>
+							<h2>Tu web para encontrar la diversión</h2>		
+							<p class="grey">Aquí vas a ver la lista de bares con su respectiva cantidad de gente y su correspondiente diversión. Animate!</h2>
+							<p class="grey">La pagina de donde lo hemos sacado <a href="http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery" title="Download">article &raquo;</a></p>
+						</div>
+						<div class="left">
+							<form class="clearfixLog" name="form_login" id="form_login">
+								<h1 class="padlock">Login</h1>
+								<label class="grey" for="log">Usuario:</label>
+								<input class="field" type="text" name="usuario" id="usuario" value="" size="23" />
+								<label class="grey" for="pwd">Password:</label>
+								<input class="field" type="password" name="pass" id="pass" size="23" />
+								<p id="error"></p>
+				            	<label><input name="rememberme" id="rememberme" type="checkbox" checked="checked" value="forever" /> &nbsp;Recordarme</label>
+			        			<div class="clear"></div>
+								<input type="submit" name="submit" value="Entrar" class="bt_login" />
+								<a class="lost-pwd" href="#">Has olvidado tu contraseña?</a>
+							</form>
+						</div>
+						<div class="left right">
+							
+								<h1>Aun no eres usuario? Registrate!</h1>				
+								<label class="grey" for="signup">Usuario:</label>
+								<input class="field" type="text" name="signup" id="signup" value="" size="23" />
+								<label class="grey" for="email">Email:</label>
+								<input class="field" type="text" name="email" id="email" size="23" />
+								<label>Rellena el siguiente formulario</label>
+								<input type="submit" name="submit" value="Registro" class="bt_register" />
+								</br>
+								<a href="http://plus.google.com"><img class="imgRegis" src="Imagenes/iconoGoogle.png" /></a>
+								<a href="http://www.facebook.com"><img class="imgLink" src="Imagenes/iconoFacebook.png" /></a>
+						
+						</div>
+					</div>
+				</div> <!-- /login -->	
+
+			    <!-- The tab on top -->	
+				<div class="tab">
+					<ul class="login">
+				    	<li class="left">&nbsp;</li>
+				        <li>Hola {{#if usuario}}{{usuario}}{{else}}Invitado!{{/if}}</li>
+						<li class="sep">|</li>
+						<li id="toggle">
+							{{#unless usuario}}<a id="open" class="open" href="#">Login | Registro</a>{{else}}<a href="/cerrarSesion">Cerrar Sesión</a>{{/unless}}
+							<a id="close" style="display: none;" class="close" href="#">Cerrar Panel</a>			
+						</li>
+				    	<li class="right">&nbsp;</li>
+					</ul> 
+				</div> <!-- / top -->
+				
+			</div> <!--panel -->
+
+		</header>
+	</div>
+	
+	<div class="main">
+		
+		<section>
+			
+		<div class="menu">	
+			<nav class="clearfix">
+		        <ul class="clearfix" id="botones">
+		            <li><a href="#">Inicio</a></li>
+		            <li><a href="#">Perfil</a></li>
+		            <li><a href="#">Anuncios</a></li>
+		            <li><a href="#">Foro</a></li>
+		        </ul>
+	           		<a href="#" id="desplegable">Menu</a>
+	      	</nav>
+	     </div>
+
+		<div class="contenedorBuscador">
+
+			<h1 id="titulo"> Tu buscador de diversión por excelencia </h1>
+			<h2 id="subtitulo"> Busca por nombre del establecimiento, población o cantidad de personas y <em><bold>DIVIERTETE</bold></em>! </h2>
+
+			<div class="buscador">
+				<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
+				<input type="button" id="btnBusqueda" value="IR"></input>
+			</div>
+		</div>
+
+		<div class="tablaRecintos" >
+			
+			<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
+			<table id="tabla" >
+				<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
+			</table>
+
+		</div>
+
+
+		</section>
+		
+	</div>
+	
+	<footer>	
+
+		Siguenos en: 
+		
+		</br>
+		
+		<a class="link" href="http://www.facebook.com"><img class="imgLink" src="Imagenes/facebook.png" /></a>
+		<a class="link" href="http://plus.google.com"><img class="imgLink" src="Imagenes/google.png" /></a>
+		<a class="link" href="http://www.twitter.com"><img class="imgLink" src="Imagenes/twiter.png" /></a>
+		
+		</br>
+		
+		Copyright Rubén Aparicio y Alvaro Jimenez
+	
+	</footer>
+</div>
+<div id="central" >
+        <div class="main">
+			<form class="form" method="post" action="#">
+				<h2>Registrate</h2>
+				
+				<div><label>Usuario:</label>
+				<input type="text" name="duser" id="usuario" value=""> 
+				</div>
+				<div><label id="lusu"> </label></div>
+			</br>
+				<div><label>Password:</label>
+				<input type="password" name="password" id="pass" value=""></div>
+				<div><label id="lpass"> </label></div>
+			</br>
+				<div><label>Confirmar Password:</label>
+				<input type="password" name="cpassword" id="cpass" value=""></div>
+				<div><label id="lcpass"> </label></div>
+			</br>
+				<div><label>Nombre:</label>
+				<input type="text" name="dname" id="nombre" value=""></div>
+				<div><label id="lnom"> </label></div>
+			</br>
+				<div><label>Apellido:</label>
+				<input type="text" name="dsurname" id="apellido" value=""></div>
+				<div><label id="lape"> </label></div>
+			</br>
+				<div><label>Ciudad:</label>
+				<input type="text" name="dciudad" id="ciudad" value=""></div>
+				<div><label id="lciu"> </label></div>
+			</br>
+				<div><label>Email:</label>
+				<input type="text" name="demail" id="email" value=""></div>
+				<div><label id="lema"> </label></div>
+			</br>
+				<div><label>¿Eres dueño de algun recinto?:</label>
+				<input type="checkbox" name="dDueno" id="dueno" value=""></div>
+			</br>	
+				<div><label>Direccion recinto:</label>
+				<input type="text" name="dDireccion" id="direccion" value=""></div>
+				<div><label id="ldir"> </label></div>
+			</br>
+				<div><label>Nombre recinto:</label>
+				<input type="text" name="dnombrerec" id="nombreRecinto" value=""></div>
+				<div><label id="lnomrec"> </label></div>
+			</br>
+				<div><label>Descripción:</label>
+				<textarea type="text" name="ddescripcion" id="descripcion" value=""></textarea></div>
+				<div><label id="ldesc"> </label></div>
+			</br>
+				<div><input type="button" name="register" id="registro" value="Registrar"></div>
+			</form>
+		</div>
+    </div>
+</body>
+
+<script>
+
+$(document).ready(function() {
+
+	//CONEXION OPENSHIFT
+	var socket = io.connect('http://proyecto-quienandaahi.rhcloud.com:8000');
+
+		/* PARA EL MENU EN FORMATO MOVIL */
+
+		$(function() {
+			var pull 		= $('#desplegable');
+				menu 		= $('nav ul');
+				menuHeight	= menu.height();
+
+			$(pull).on('click', function(e) {
+				e.preventDefault();
+				menu.slideToggle();
+			});
+
+			$(window).resize(function(){
+        		var w = $(window).width();
+        		if(w > 320 && menu.is(':hidden')) {
+        			menu.removeAttr('style');
+        		}
+    		});
+		});
+
+		/* FORMULARIO LOGIN */
+	 
+		$( "#form_login" ).submit(function( event ) {
+		console.log("submit");
+		/* Stop form from submitting normally */
+		event.preventDefault();
+		/* Clear result div*/
+		var formData = $(this).serializeArray();
+	
+		$.ajax({
+			// type: "GET",
+			type: "POST",
+			url: "/log",
+			//dataType: "json",
+			dataType: "html",
+			data: formData,
+	
+		success: function(data){
+			console.log(data);
+			if(data=="Password incorrecto" || data=="Usuario incorrecto"){
+				$( "#error" ).text(data);
+			}else{
+				window.location = "/";
+			}
+			
+				
+		},
+		
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			//alert("Status: " + textStatus); alert("Error: " + errorThrown);
+			console.log(XMLHttpRequest.responseText);
+				$( "#contentDiv" ).html(XMLHttpRequest.responseText);
+			}
+		});
+	});
+
+	// Expand Panel
+	$("#open").click(function(){
+		$("div#panel").slideDown("slow");
+	});	
+ 
+	// Collapse Panel
+	$("#close").click(function(){
+		$("div#panel").slideUp("slow");
+	});		
+ 
+	// Switch buttons from "Log In | Register" to "Close Panel" on click
+	$("#toggle a").click(function () {
+		$("#toggle a").toggle();
+	});	
+
+	
+// SCRIPT PARA EL BUSCADOR Y AUTOCOMPLETAR
+
+$("#busqueda").geocomplete();
+ 
+
+// TABLA DATOS RECINTOS
+
+$.getJSON( "/listarecintos", function(data) {
+	 
+   
+   var texto="";
+   
+var cont2 = 1;
+   $.each( data, function( cont, val ) {
+      
+      texto+= "<tbody><tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr></tbody>" ;
+    cont2++;
+      cont++;
+    
+    });
+ 
+   	console.log(texto);
+	$("#tabla").append(texto);
+	
+  });
+
+	
+		var socket = io();
+  	socket.on('cambiorecinto', function(msg){
+  		var nombre=msg.columna+msg.id;
+  		if(msg.columna == "Mujeres")
+  			{
+	 	$("#"+nombre).text(msg.numero[0].Mujeres);
+	 }else{
+	 	$("#"+nombre).text(msg.numero[0].Hombres);
+	 }
+ 	 });
+});
+//OSCURECER
+$(".bt_register").click(function(){
+		$("div#panel").slideUp("slow");
+		$("#toggle a").toggle();
+		$(".contenido").fadeTo("slow" , 0.3, function() {
+ 		$("#central").css("z-index" , "1");
+   		 $("#central").fadeTo("fast" , 1);
+   		 $(".contenido").click(function(){
+   		 	$("#central").css("z-index" , "-1");
+			$(".contenido").fadeTo("slow" , 1);
+   		 	$("#central").fadeTo("fast" , 0);
+
+   		 	});
+  	});
+	});	
+ 
+
+
+</script>
+
+</html>

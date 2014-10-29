@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"/>
+	<title>login</title>
+
+	<link rel="stylesheet" type="text/css" href="css/login.css" />
+	<link rel="stylesheet" type="text/css" href="../css/login.css" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div class="login-form">
+		
+		{{#if error}}
+		<p>{{error}}</p>
+		{{/if}}
+
+	 	<h1>Login Form</h1>
+ 
+	    <form action="/log" method="POST">
+	 
+	        <input type="text" id="usuario" placeholder="usuario">
+	 
+	        <input type="password" id="pass" placeholder="password">
+	 
+	        <span>
+	            <input type="checkbox" name="checkbox">
+	            <label for="checkbox">Recordarme</label>
+	        </span>
+	 
+	        <input type="submit" id="enviar" value="ENTRAR">
+	 
+	    </form>
+
+	</div>
+</body>
+
+<script>
+$(document).ready(function() {
+ 
+    // Check if JavaScript is enabled
+    $('body').addClass('js');
+ 
+    // Make the checkbox checked on load
+    $('.login-form span').addClass('checked').children('input').attr('checked', true);
+ 
+    // Click function
+    $('.login-form span').on('click', function() {
+ 
+        if ($(this).children('input').attr('checked')) {
+            $(this).children('input').attr('checked', false);
+            $(this).removeClass('checked');
+        }
+ 
+        else {
+            $(this).children('input').attr('checked', true);
+            $(this).addClass('checked');
+        }
+ 
+    });
+ 
+});
+</script>
+
+</html>

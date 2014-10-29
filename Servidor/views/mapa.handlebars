@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"/>
+	<title>login</title>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=es"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="gmap3-master/dist/gmap3.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+</head>
+<body>	
+Mapa recintos
+	<div id="mapa"></div>
+
+	<script type="text/javascript">
+
+	var recintosList = [
+		{address: "Olmos de los Ibilbidea, 2, San Sebastián", data:"Casa"},
+		{address: "Alcalde J. Elosegi Hiribidea, 130, San Sebastián", data:"casa2"},
+		{address: "Aldakonea Kalea, 62, San Sebastián", data:"casa3"}
+	];
+
+
+	$("#mapa").gmap3({
+  map:{
+    options: {
+      center:[43.3155781,-1.9634024],
+      zoom: 10,
+    
+    }
+  },
+  marker: {
+     values:recintosList,
+    cluster:{
+      radius:100,
+      // This style will be used for clusters with more than 0 markers
+      0: {
+        content: "<div style='background-color:red'>CLUSTER_COUNT</div>",
+        width: 53,
+        height: 52
+      },
+      // This style will be used for clusters with more than 20 markers
+      20: {
+        content: "<div class='cluster cluster-2'>CLUSTER_COUNT</div>",
+        width: 56,
+        height: 55
+      },
+      // This style will be used for clusters with more than 50 markers
+      50: {
+        content: "<div class='cluster cluster-3'>CLUSTER_COUNT</div>",
+        width: 66,
+        height: 65
+      }
+    },
+    options: {
+      icon: new google.maps.MarkerImage("http://maps.gstatic.com/mapfiles/icon_green.png")
+    },
+      events:{
+      mouseover: function(marker, event, context){
+        var map = $(this).gmap3("get"),
+          infowindow = $(this).gmap3({get:{name:"infowindow"}});
+        if (infowindow){
+          infowindow.open(map, marker);
+          infowindow.setContent(context.data);
+        } else {
+          $(this).gmap3({
+            infowindow:{
+              anchor:marker, 
+              options:{content: context.data}
+            }
+          });
+        }
+      },
+      mouseout: function(){
+        var infowindow = $(this).gmap3({get:{name:"infowindow"}});
+        if (infowindow){
+          infowindow.close();
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
