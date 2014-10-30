@@ -100,7 +100,7 @@ app.get('/clienteFinal', function(req, res){
 });
 
 app.post('/registro', function(req, res){
-   db.query('INSERT INTO Usuarios(user,Password,Nombre,Apellido,Email,Propietario,Ciudad) values ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
+   db.query('INSERT INTO Usuarios(User,Password,Nombre,Apellido,Email,Propietario,Ciudad) VALUES ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
         // no errors
       
         req.session.usuario=req.body;
@@ -114,31 +114,31 @@ app.post('/registrodueno', function(req, res){
     var idusuario="";
     var idrecinto="";
     //METER USUARIO
-   db.query('INSERT INTO Usuarios(user,Password,Nombre,Apellido,Email,Propietario,Ciudad) values ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
+   db.query('INSERT INTO Usuarios(User,Password,Nombre,Apellido,Email,Propietario,Ciudad) VALUES ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
         // NO HAY ERROR, COGER SU ID
         db.query('SELECT MAX(idUsuarios) "a" FROM Usuarios;').success(function(rowsa){
-             idusuario=rowsa[0].a;
-              console.log(idusuario);
+            idusuario=rowsa[0].a;
+            console.log(idusuario);
         }).error(function (err){ 
         res.send(err); 
         });
         //METER RECINTO
-        db.query('INSERT INTO recintos(Nombre,Direccion,Descripcion) values("'+req.body.nombrerecinto+'","'+req.body.direccion+'","'+req.body.descripcion+'");').success(function(rowsa){
+        db.query('INSERT INTO Recintos(Nombre, Direccion, Descripcion) VALUES("'+req.body.nombrerecinto+'","'+req.body.direccion+'","'+req.body.descripcion+'");').success(function(rowsa){
                        //NO HAY ERROR COGER ID RECINTO
-                       db.query('SELECT MAX(idRecintos) "a" FROM recintos;').success(function(rowsa){
+                       db.query('SELECT MAX(idRecintos) "a" FROM Recintos;').success(function(rowsa){
                           idrecinto=rowsa[0].a;
                           console.log(idrecinto);
                           //DESPUES DE COGER EL IDRECINTO, INSERTAR LOS DOS IDS EN LA TABLA-RELACION LOGIN
-                          db.query('INSERT INTO login(idRecinto,idUsuarios) values('+idrecinto+','+idusuario+');').success(function(rowsa){
+                          db.query('INSERT INTO Login(idRecinto,idUsuarios) VALUES('+idrecinto+','+idusuario+');').success(function(rowsa){
                             res.send("todo correcto");
                             req.session.usuario=req.body;
                            }).error(function (err){  
                             //SI FALLA EL INSERT EN LOGIN, BORRAR LOS INSERTS QUE SE HAN HECHO ANTES
-                              db.query('DELETE FROM Usuarios where idUsuarios ='+idusuario+';').success(function(rowsa){
+                              db.query('DELETE FROM Usuarios WHERE idUsuarios ='+idusuario+';').success(function(rowsa){
                                }).error(function (err){  
                                  res.send(err);
                               });
-                              db.query('DELETE FROM Recintos where idRecintos ='+idrecinto+';').success(function(rowsa){
+                              db.query('DELETE FROM Recintos WHERE idRecintos ='+idrecinto+';').success(function(rowsa){
                                }).error(function (err){  
                                  res.send(err);
                               });
@@ -148,7 +148,7 @@ app.post('/registrodueno', function(req, res){
                       });
            //SI FALLA EL INSERT EN RECINTO, BORRAR LOS INSERTS QUE SE HAN HECHO ANTES            
           }).error(function (err){ 
-                       db.query('DELETE FROM Usuarios where idUsuarios ='+idusuario+';').success(function(rowsa){
+                       db.query('DELETE FROM Usuarios WHERE idUsuarios ='+idusuario+';').success(function(rowsa){
                         }).error(function (err){  
                            res.send(err);
                         });
@@ -192,7 +192,7 @@ function encriptar(user, pass) {
 // TRATAMIENTO ENVIO DE LOGIN
 app.post('/log', function(req, res){
  
-  db.query('SELECT Password, idUsuarios, Propietario FROM Usuarios where User="'+ req.param("usuario")+'";').success(function(rows){
+  db.query('SELECT Password, idUsuarios, Propietario FROM Usuarios WHERE User="'+ req.param("usuario")+'";').success(function(rows){
     // no errors
     var usuario = req.body.usuario;
     var password = req.body.pass;
@@ -201,7 +201,7 @@ app.post('/log', function(req, res){
 
     if(rows[0].Password.toString() == pass){
        if(dueno=="1"){
-        db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
+        db.query('SELECT idRecinto FROM Login WHERE idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
           // no errors
           var idRec = rowsa[0].idRecinto.toString();
           req.session.usuario={ "recinto": idRec ,"usu": usuario,"propietario": dueno };
@@ -224,7 +224,7 @@ app.post('/log', function(req, res){
 });
 app.post('/regcomp', function(req, res){
  
-  db.query('SELECT count(*) "a" FROM Usuarios where Email="'+ req.body.email+'";').success(function(rows){
+  db.query('SELECT count(*) "a" FROM Usuarios WHERE Email="'+ req.body.email+'";').success(function(rows){
     // no errors
 
     if(rows[0].a > 0 ){
@@ -232,9 +232,9 @@ app.post('/regcomp', function(req, res){
     
 
     }else{
-      db.query('SELECT count(*) "a" FROM Usuarios where User="'+ req.body.signup+'";').success(function(rowsa){
+      db.query('SELECT count(*) "a" FROM Usuarios WHERE User="'+ req.body.signup+'";').success(function(rowsa){
         // no errors
-        console.log('SELECT count(*) "a" FROM Usuarios where User="'+ req.body.signup+'";');
+        console.log('SELECT count(*) "a" FROM Usuarios WHERE User="'+ req.body.signup+'";');
          if(rowsa[0].a > 0 ){
           res.send("Usuario ocupado");
           }

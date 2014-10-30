@@ -114,26 +114,45 @@
 
 		<div class="tablaRecintos" >
 
+			{{#unless usu}}
 
-			
+			{{else}}
+				
 				{{#if propietario}}
-				<a class="button darkblue" href="#">ACTUAL</a>
-				<a class="button darkblue" href="#">+ CERCA</a>
-				<a class="button darkblue" href="#">+ FRECUENTADOS</a>
-				<a class="button darkblue" href="#">+ VISITADOS</a>
+					
+					<h1>Gestione su establecimiento</h1>
 
+					<input type="button" id="btnAnadir" value="AÑADIR RECINTO"></input>
+					<input type="button" id="btnAnunciarse" value="ANUNCIARSE"></input>
 
+					<a class="button darkblue" href="#">ACTUAL</a>
+					<a class="button darkblue" href="#">+ CERCA</a>
+					<a class="button darkblue" href="#">+ FRECUENTADOS</a>
+					<a class="button darkblue" href="#">+ VISITADOS</a>
 
-				{{else}}
-
-					<h1>prueba</h1>
-
-				{{/if}}
-			
 					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
 					<table id="tabla" >
 						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
 					</table>
+
+				{{else}}
+
+					<h1>Usuario normal</h1>
+
+					<a class="button darkblue" href="#">ACTUAL</a>
+					<a class="button darkblue" href="#">+ CERCA</a>
+					<a class="button darkblue" href="#">+ FRECUENTADOS</a>
+					<a class="button darkblue" href="#">+ VISITADOS</a>
+
+					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
+					<table id="tabla" >
+						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
+					</table>
+
+				{{/if}}
+				
+			{{/unless}}
+
 		</div>
 
 
@@ -157,6 +176,7 @@
 	
 	</footer>
 </div>
+
 <div id="central" >
         <div class="main">
 			<form class="form" method="post" action="#">
@@ -193,12 +213,25 @@
 			</br>
 				<div><label>¿Eres dueño de algun recinto?:</label>
 				<input type="checkbox" name="dDueno" id="dueno" value=""></div>
+			<!--</br>	
+				<div><label>Direccion recinto:</label>
+				<input type="text" name="dDireccion" id="direccion" value=""></div>
+				<div><label id="ldir"> </label></div>
+			</br>
+				<div><label>Nombre recinto:</label>
+				<input type="text" name="dnombrerec" id="nombreRecinto" value=""></div>
+				<div><label id="lnomrec"> </label></div>
+			</br>
+				<div><label>Descripción:</label>
+				<textarea type="text" name="ddescripcion" id="descripcion" value=""></textarea></div>
+				<div><label id="ldesc"> </label></div>-->
 			</br>	
 				<div id="datRecinto"></div> 
 				<div align="center"><input type="button" name="register" id="registro" value="Registrar"></div>
 			</form>
 		</div>
     </div>
+
 </body>
 
 <script>
@@ -390,7 +423,7 @@ var cont2 = 1;
 	 	$("#"+nombre).text(msg.numero[0].Hombres);
 	 }
  	 });
-});
+
 
  function validar_email(valor)
 	{
@@ -402,7 +435,7 @@ var cont2 = 1;
 		else
 			return false;
 	}
-
+});
 
 </script>
 
