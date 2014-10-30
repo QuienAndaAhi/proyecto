@@ -63,6 +63,9 @@ $(document).ready(function() {
 		}
 		
 	});
+	$("#ciudad").geocomplete({
+ 		types: ['(cities)']
+		});
 	$("#ciudad").focusout(function()
 	{
 		if ($("#ciudad").val()==''){
@@ -162,7 +165,7 @@ $(document).ready(function() {
 				"nombre": nombre,
 				"apellido": apellido,
 				"email": email,
-				"dueno":0,
+				"dueno":1,
 				"direccion":$("#direccion").val(),
 				"nombrerecinto":$("#nombreRecinto").val(),
 				"descripcion":$("#descripcion").val()
@@ -176,12 +179,13 @@ $(document).ready(function() {
 				
 				success: function(data){
 					console.log(data);
-					alert(data);
+					window.location = "/";
 				},
 		
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					//alert("Status: " + textStatus); alert("Error: " + errorThrown);
-					console.log(XMLHttpRequest.responseText);
+					console.log(errorThrown);
+					window.location = "/";
 				
 				}
 			})

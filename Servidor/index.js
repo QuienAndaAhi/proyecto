@@ -110,6 +110,56 @@ app.post('/registro', function(req, res){
       res.send("no ok");
     });
 });
+app.post('/registrodueno', function(req, res){
+    var idusuario="";
+    var idrecinto="";
+    //METER USUARIO
+   db.query('INSERT INTO Usuarios(user,Password,Nombre,Apellido,Email,Propietario,Ciudad) values ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
+        // NO HAY ERROR, COGER SU ID
+        db.query('SELECT MAX(idUsuarios) "a" FROM Usuarios;').success(function(rowsa){
+             idusuario=rowsa[0].a;
+              console.log(idusuario);
+        }).error(function (err){ 
+        res.send(err); 
+        });
+        //METER RECINTO
+        db.query('INSERT INTO recintos(Nombre,Direccion,Descripcion) values("'+req.body.nombrerecinto+'","'+req.body.direccion+'","'+req.body.descripcion+'");').success(function(rowsa){
+                       //NO HAY ERROR COGER ID RECINTO
+                       db.query('SELECT MAX(idRecintos) "a" FROM recintos;').success(function(rowsa){
+                          idrecinto=rowsa[0].a;
+                          console.log(idrecinto);
+                          //DESPUES DE COGER EL IDRECINTO, INSERTAR LOS DOS IDS EN LA TABLA-RELACION LOGIN
+                          db.query('INSERT INTO login(idRecinto,idUsuarios) values('+idrecinto+','+idusuario+');').success(function(rowsa){
+                            res.send("todo correcto");
+                            req.session.usuario=req.body;
+                           }).error(function (err){  
+                            //SI FALLA EL INSERT EN LOGIN, BORRAR LOS INSERTS QUE SE HAN HECHO ANTES
+                              db.query('DELETE FROM Usuarios where idUsuarios ='+idusuario+';').success(function(rowsa){
+                               }).error(function (err){  
+                                 res.send(err);
+                              });
+                              db.query('DELETE FROM Recintos where idRecintos ='+idrecinto+';').success(function(rowsa){
+                               }).error(function (err){  
+                                 res.send(err);
+                              });
+                          });
+                        }).error(function (err){
+                         res.send(err);  
+                      });
+           //SI FALLA EL INSERT EN RECINTO, BORRAR LOS INSERTS QUE SE HAN HECHO ANTES            
+          }).error(function (err){ 
+                       db.query('DELETE FROM Usuarios where idUsuarios ='+idusuario+';').success(function(rowsa){
+                        }).error(function (err){  
+                           res.send(err);
+                        });
+          });    
+        
+    
+      }).error(function (err){  
+  
+      res.send("no ok");
+    });
+});
 
 app.get('/registro', function(req, res){
 
@@ -146,20 +196,22 @@ app.post('/log', function(req, res){
     // no errors
     var usuario = req.body.usuario;
     var password = req.body.pass;
-
+    var dueno = rows[0].Propietario;
     var pass = encriptar(usuario, password);
 
     if(rows[0].Password.toString() == pass){
-      
-      db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
-        // no errors
-        var idRec = rowsa[0].idRecinto.toString();
-        var dueno = rows[0].Propietario;
+       if(dueno=="1"){
+        db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
+          // no errors
+          var idRec = rowsa[0].idRecinto.toString();
+          req.session.usuario={ "recinto": idRec ,"usu": usuario,"propietario": dueno };
 
-        req.session.usuario={ "recinto": idRec ,"usu": usuario,"propietario": dueno };
-        res.send("ok");
-      });
-
+          res.send("ok");
+        });
+        }else{
+           req.session.usuario={ "usu": usuario};
+            res.send("ok");
+        }
     }else{
     
       res.send("Password incorrecto");
@@ -202,7 +254,7 @@ app.post('/regcomp', function(req, res){
 app.get('/listaRecintos', function(req, res) {
 
   // Raw query
-  db.query('SELECT * FROM Recintos;').success(function(rows){
+  db.query('SELECT * FROM Recintos LIMIT 9;').success(function(rows){
     // no errors
     console.log(rows);
     res.json(rows);

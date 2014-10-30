@@ -114,29 +114,26 @@
 
 		<div class="tablaRecintos" >
 
-			{{#unless usu}}
 
-
-			{{else}}
 			
-				{{#if propietario '==' 0}}
-					<input type="button" id="btnActual" value="ACTUAL"></input>
-					<input type="button" id="btnCerca" value="+ CERCA"></input>
-					<input type="button" id="btnFrecuentados" value="+ FRECUENTADOS"></input>
-					<input type="button" id="btnVisitados" value="VISITADOS"></input>
+				{{#if propietario}}
+				<a class="button darkblue" href="#">ACTUAL</a>
+				<a class="button darkblue" href="#">+ CERCA</a>
+				<a class="button darkblue" href="#">+ FRECUENTADOS</a>
+				<a class="button darkblue" href="#">+ VISITADOS</a>
 
-					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
-					<table id="tabla" >
-						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
-					</table>
+
 
 				{{else}}
 
 					<h1>prueba</h1>
 
 				{{/if}}
-			{{/unless}}
-
+			
+					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
+					<table id="tabla" >
+						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
+					</table>
 		</div>
 
 
