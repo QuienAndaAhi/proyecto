@@ -65,6 +65,9 @@ db.authenticate().complete(function(err){
 
 app.get('/', function(req, res){
 
+
+  /*var usu={usu:req.session.usuario,};*/
+
   res.render('index', req.session.usuario);
 
 });
@@ -97,7 +100,7 @@ app.get('/clienteFinal', function(req, res){
 });
 
 app.post('/registro', function(req, res){
-   db.query('INSERT INTO Usuarios(user,Password,Nombre,Apellido,Email,Propietario,ciudad) values ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
+   db.query('INSERT INTO Usuarios(user,Password,Nombre,Apellido,Email,Propietario,Ciudad) values ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
         // no errors
       
         req.session.usuario=req.body;
@@ -139,7 +142,7 @@ function encriptar(user, pass) {
 // TRATAMIENTO ENVIO DE LOGIN
 app.post('/log', function(req, res){
  
-  db.query('SELECT Password, idUsuarios FROM Usuarios where User="'+ req.param("usuario")+'";').success(function(rows){
+  db.query('SELECT Password, idUsuarios, Propietario FROM Usuarios where User="'+ req.param("usuario")+'";').success(function(rows){
     // no errors
     var usuario = req.body.usuario;
     var password = req.body.pass;
@@ -151,7 +154,9 @@ app.post('/log', function(req, res){
       db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
         // no errors
         var idRec = rowsa[0].idRecinto.toString();
-        req.session.usuario={ "recinto" : idRec ,"usu": usuario };
+        var dueno = rows[0].Propietario;
+
+        req.session.usuario={ "recinto": idRec ,"usu": usuario,"propietario": dueno };
         res.send("ok");
       });
 
@@ -169,8 +174,6 @@ app.post('/regcomp', function(req, res){
  
   db.query('SELECT count(*) "a" FROM Usuarios where Email="'+ req.body.email+'";').success(function(rows){
     // no errors
-
-
 
     if(rows[0].a > 0 ){
       res.send("Email ocupado");

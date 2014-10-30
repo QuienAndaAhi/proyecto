@@ -113,16 +113,29 @@
 		</div>
 
 		<div class="tablaRecintos" >
+
+			{{#unless usu}}
+
+
+			{{else}}
 			
-			<input type="button" id="btnActual" value="ACTUAL"></input>
-			<input type="button" id="btnCerca" value="+ CERCA"></input>
-			<input type="button" id="btnFrecuentados" value="+ FRECUENTADOS"></input>
-			<input type="button" id="btnVisitados" value="VISITADOS"></input>
-			
-			<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
-			<table id="tabla" >
-				<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
-			</table>
+				{{#if propietario '==' 0}}
+					<input type="button" id="btnActual" value="ACTUAL"></input>
+					<input type="button" id="btnCerca" value="+ CERCA"></input>
+					<input type="button" id="btnFrecuentados" value="+ FRECUENTADOS"></input>
+					<input type="button" id="btnVisitados" value="VISITADOS"></input>
+
+					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
+					<table id="tabla" >
+						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
+					</table>
+
+				{{else}}
+
+					<h1>prueba</h1>
+
+				{{/if}}
+			{{/unless}}
 
 		</div>
 
@@ -185,7 +198,7 @@
 				<input type="checkbox" name="dDueno" id="dueno" value=""></div>
 			</br>	
 				<div id="datRecinto"></div> 
-				<div><input type="button" name="register" id="registro" value="Registrar"></div>
+				<div align="center"><input type="button" name="register" id="registro" value="Registrar"></div>
 			</form>
 		</div>
     </div>
