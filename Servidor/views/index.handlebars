@@ -47,15 +47,17 @@
 							</form>
 						</div>
 						<div class="left right">
-							
+							<form id="form_registro" method="POST">
 								<h1>Aun no eres usuario? Registrate!</h1>				
 								<label class="grey" for="signup">Usuario:</label>
 								<input class="field" type="text" name="signup" id="signup" value="" size="23" />
 								<label class="grey" for="email">Email:</label>
 								<input class="field" type="text" name="email" id="email" size="23" />
+								<p id="errorreg"></p>
 								<label>Rellena el siguiente formulario</label>
 								<input type="submit" name="submit" value="Registro" class="bt_register" />
 								</br>
+								</form>
 								<a href="http://plus.google.com"><img class="imgRegis" src="Imagenes/iconoGoogle.png" /></a>
 								<a href="http://www.facebook.com"><img class="imgLink" src="Imagenes/iconoFacebook.png" /></a>
 						
@@ -67,10 +69,10 @@
 				<div class="tab">
 					<ul class="login">
 				    	<li class="left">&nbsp;</li>
-				        <li>Hola {{#if usuario}}{{usuario}}{{else}}Invitado!{{/if}}</li>
+				        <li>Hola {{#if usu}}{{usu}}{{else}}Invitado!{{/if}}</li>
 						<li class="sep">|</li>
 						<li id="toggle">
-							{{#unless usuario}}<a id="open" class="open" href="#">Login | Registro</a>{{else}}<a href="/cerrarSesion">Cerrar Sesión</a>{{/unless}}
+							{{#unless usu}}<a id="open" class="open" href="#">Login | Registro</a>{{else}}<a href="/cerrarSesion">Cerrar Sesión</a>{{/unless}}
 							<a id="close" style="display: none;" class="close" href="#">Cerrar Panel</a>			
 						</li>
 				    	<li class="right">&nbsp;</li>
@@ -100,8 +102,9 @@
 
 		<div class="contenedorBuscador">
 
-			<h1 id="titulo"> Tu buscador de diversión por excelencia </h1>
-			<h2 id="subtitulo"> Busca por nombre del establecimiento, población o cantidad de personas y <em><bold>DIVIERTETE</bold></em>! </h2>
+			<div id="titulo"> Tu buscador de diversión por excelencia </div
+			>
+			<div id="subtitulo"> Busca por nombre del establecimiento, población o cantidad de personas y <em><bold>DIVIERTETE</bold></em>! </div>
 
 			<div class="buscador">
 				<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
@@ -145,12 +148,12 @@
 				<h2>Registrate</h2>
 				
 				<div><label>Usuario:</label>
-				<input type="text" name="duser" id="usuario" value=""> 
+				<input type="text" name="duser" id="usuarioreg" value="" disabled> 
 				</div>
 				<div><label id="lusu"> </label></div>
 			</br>
 				<div><label>Password:</label>
-				<input type="password" name="password" id="pass" value=""></div>
+				<input type="password" name="password" id="passreg" value=""></div>
 				<div><label id="lpass"> </label></div>
 			</br>
 				<div><label>Confirmar Password:</label>
@@ -170,24 +173,13 @@
 				<div><label id="lciu"> </label></div>
 			</br>
 				<div><label>Email:</label>
-				<input type="text" name="demail" id="email" value=""></div>
+				<input type="text" name="demail" id="emailreg" value="" disabled></div>
 				<div><label id="lema"> </label></div>
 			</br>
 				<div><label>¿Eres dueño de algun recinto?:</label>
 				<input type="checkbox" name="dDueno" id="dueno" value=""></div>
 			</br>	
-				<div><label>Direccion recinto:</label>
-				<input type="text" name="dDireccion" id="direccion" value=""></div>
-				<div><label id="ldir"> </label></div>
-			</br>
-				<div><label>Nombre recinto:</label>
-				<input type="text" name="dnombrerec" id="nombreRecinto" value=""></div>
-				<div><label id="lnomrec"> </label></div>
-			</br>
-				<div><label>Descripción:</label>
-				<textarea type="text" name="ddescripcion" id="descripcion" value=""></textarea></div>
-				<div><label id="ldesc"> </label></div>
-			</br>
+				<div id="datRecinto"></div> 
 				<div><input type="button" name="register" id="registro" value="Registrar"></div>
 			</form>
 		</div>
@@ -199,8 +191,8 @@
 $(document).ready(function() {
 
 	//CONEXION OPENSHIFT
-	var socket = io.connect('http://proyectoos-quienandaahi.rhcloud.com:8000');
-
+	//var socket = io.connect('http://proyectoos-quienandaahi.rhcloud.com:8000');
+var socket = io.connect();
 		/* PARA EL MENU EN FORMATO MOVIL */
 
 		$(function() {
@@ -224,7 +216,7 @@ $(document).ready(function() {
 		/* FORMULARIO LOGIN */
 	 
 		$( "#form_login" ).submit(function( event ) {
-		console.log("submit");
+		
 		/* Stop form from submitting normally */
 		event.preventDefault();
 		/* Clear result div*/
@@ -239,7 +231,7 @@ $(document).ready(function() {
 			data: formData,
 	
 		success: function(data){
-			console.log(data);
+		
 			if(data=="Password incorrecto" || data=="Usuario incorrecto"){
 				$( "#error" ).text(data);
 			}else{
@@ -256,7 +248,80 @@ $(document).ready(function() {
 			}
 		});
 	});
+//OSCURECER
+	$( "#form_registro" ).submit(function( event ) {
+		
+		/* Stop form from submitting normally */
+		event.preventDefault();
+		/* Clear result div*/
+		var formData = $(this).serializeArray();
+		$("#signup").val($("#signup").val().trim());
+		if ($("#signup").val()==''){
+			$("#errorreg").text("Inserta usuario");
+			
+		}
 
+		else if ($("#signup").val().length < 6 || $("#signup").val().length > 15){
+			$("#errorreg").text("El usuario debe de tener entre 6 y 15 caracteres");
+			
+		}else if ($("#email").val()==''){
+			$("#errorreg").text("Inserta el email");
+			
+		}
+		else if(validar_email($("#email").val()) == false){
+            $("#errorreg").text("El correo electrónico introducido no es correcto");
+          
+
+     	}
+		else{
+			$("#errorreg").text("");
+			$.ajax({
+			// type: "GET",
+			type: "POST",
+			url: "/regcomp",
+			//dataType: "json",
+			dataType: "html",
+			data: formData,
+	
+		success: function(data){
+			
+
+			if(data=="ok"){
+				$( "#errorreg" ).text("");
+				$("#usuarioreg").val($("#signup").val());
+				$("#emailreg").val($("#email").val());
+				$("div#panel").slideUp("slow");
+				$("#toggle a").toggle();
+				$(".contenido").fadeTo("slow" , 0.3, function() {
+	 				$("#central").css("z-index" , "1");
+	   				$("#central").fadeTo("fast" , 1);
+	   				$(".contenido").click(function(){
+	   		 			$("#central").css("z-index" , "-1");
+						$(".contenido").fadeTo("slow" , 1);
+	   		 			$("#central").fadeTo("fast" , 0);
+
+   		 			});
+  				});
+			}else{
+				$( "#errorreg" ).text(data);
+			}
+			
+				
+		},
+		
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			//alert("Status: " + textStatus); alert("Error: " + errorThrown);
+			console.log(XMLHttpRequest.responseText);
+				$( "#contentDiv" ).html(XMLHttpRequest.responseText);
+			}
+		});
+		}
+			
+		
+	});
+$(".bt_register").click(function(){
+
+	});	
 	// Expand Panel
 	$("#open").click(function(){
 		$("div#panel").slideDown("slow");
@@ -311,22 +376,17 @@ var cont2 = 1;
 	 }
  	 });
 });
-//OSCURECER
-$(".bt_register").click(function(){
-		$("div#panel").slideUp("slow");
-		$("#toggle a").toggle();
-		$(".contenido").fadeTo("slow" , 0.3, function() {
- 		$("#central").css("z-index" , "1");
-   		 $("#central").fadeTo("fast" , 1);
-   		 $(".contenido").click(function(){
-   		 	$("#central").css("z-index" , "-1");
-			$(".contenido").fadeTo("slow" , 1);
-   		 	$("#central").fadeTo("fast" , 0);
 
-   		 	});
-  	});
-	});	
- 
+ function validar_email(valor)
+	{
+		// creamos nuestra regla con expresiones regulares.
+		var filter = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+		// utilizamos test para comprobar si el parametro valor cumple la regla
+		if(filter.test(valor))
+			return true;
+		else
+			return false;
+	}
 
 
 </script>

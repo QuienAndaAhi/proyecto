@@ -97,7 +97,15 @@ app.get('/clienteFinal', function(req, res){
 });
 
 app.post('/registro', function(req, res){
-  res.send(req.body);
+   db.query('INSERT INTO Usuarios(user,Password,Nombre,Apellido,Email,Propietario,ciudad) values ("'+req.body.usu+'", "'+encriptar(req.body.usu,req.body.pass)+'", "'+req.body.nombre+'", "'+req.body.apellido+'" ,"'+req.body.email+'",'+req.body.dueno+',"'+req.body.ciudad+' " );').success(function(rowsa){
+        // no errors
+      
+        req.session.usuario=req.body;
+        res.send(rowsa);
+      }).error(function (err){  
+  
+      res.send("no ok");
+    });
 });
 
 app.get('/registro', function(req, res){
@@ -143,7 +151,7 @@ app.post('/log', function(req, res){
       db.query('SELECT idRecinto FROM Login where idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
         // no errors
         var idRec = rowsa[0].idRecinto.toString();
-        req.session.usuario={ "recinto" : idRec ,"usuario": usuario };
+        req.session.usuario={ "recinto" : idRec ,"usu": usuario };
         res.send("ok");
       });
 
@@ -155,6 +163,35 @@ app.post('/log', function(req, res){
     }).error(function (err){  
   
       res.send("Usuario incorrecto");
+    });
+});
+app.post('/regcomp', function(req, res){
+ 
+  db.query('SELECT count(*) "a" FROM Usuarios where Email="'+ req.body.email+'";').success(function(rows){
+    // no errors
+
+
+
+    if(rows[0].a > 0 ){
+      res.send("Email ocupado");
+    
+
+    }else{
+      db.query('SELECT count(*) "a" FROM Usuarios where User="'+ req.body.signup+'";').success(function(rowsa){
+        // no errors
+        console.log('SELECT count(*) "a" FROM Usuarios where User="'+ req.body.signup+'";');
+         if(rowsa[0].a > 0 ){
+          res.send("Usuario ocupado");
+          }
+          else{
+            res.send("ok");
+          }
+      });
+    }
+
+    }).error(function (err){  
+  
+      res.send("Error");
     });
 });
 

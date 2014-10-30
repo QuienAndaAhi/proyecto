@@ -47,18 +47,25 @@ h2{
 	padding-top: 0;
 }
 
-h1#titulo{
-	margin-top: 60px;
+#titulo{
+	position: absolute;
+	
+	left:34%;
+	top:20%;
 	font: 30px bold Helvetica, serif;
 	font-weight: 900;
 	color: black;
-	text-align: center;
+	
 }
-h2#subtitulo{
+#subtitulo{
+		position: absolute;
+
+	left:28%;
+	top:26%;
 	font: 20px bold Helvetica, serif;
 	font-weight: 500;
 	color: black;
-	text-align: center;
+	
 }
 
 /* DISEÑO LOGIN Y REGISTRO */
@@ -296,7 +303,7 @@ h2#subtitulo{
 			margin-bottom: 10px;
 			position: absolute;
 			left:34.5%;
-			top:25%;
+			top:33%;
 			border: solid 1px #d2d2d2;
 			padding: 3px 5px;
 			width: 30%;

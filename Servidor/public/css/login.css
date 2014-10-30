@@ -235,4 +235,6 @@ Version: 1.0
 p#error{
     color: red;
 }
-
+p#errorreg{
+    color: red;
+}
