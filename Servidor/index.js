@@ -174,9 +174,9 @@ app.get('/mapa', function(req, res){
 });
 
 // PAGINA RECINTO
-app.get('/recinto', function(req, res){
+app.get('/', function(req, res){
   var recinto = {recinto: "1"};
-  res.render('recinto', recinto);
+  res.render('index', recinto);
 
 });
 

@@ -100,54 +100,117 @@
 	      	</nav>
 	     </div>
 
-		<div class="contenedorBuscador">
+		
 
-			<div id="titulo"> Tu buscador de diversión por excelencia </div
-			>
-			<div id="subtitulo"> Busca por nombre del establecimiento, población o cantidad de personas y <em><bold>DIVIERTETE</bold></em>! </div>
-
-			<div class="buscador">
-				<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
-				<input type="button" id="btnBusqueda" value="IR"></input>
-			</div>
-		</div>
-
-		<div class="tablaRecintos" >
+		<div class="index" >
 
 			{{#unless usu}}
+
+				<div class="contenedorBuscador">
+
+					<div id="titulo"> Tu buscador de diversión por excelencia </div>
+					<div id="subtitulo"> Busca por nombre del establecimiento, población o cantidad de personas y <em><bold>DIVIERTETE</bold></em>! </div>
+
+					<div class="buscador">
+						<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
+						<input type="button" id="btnBusqueda" value="IR"></input>
+					</div>
+				</div>
 
 			{{else}}
 				
 				{{#if propietario}}
-					
-					<h1>Gestione su establecimiento</h1>
+					<div class="contenedorIzq">
+						<div id="titProp"><h1>Gestione su establecimiento</h1></div>
+						
+						<div id="btnConf">
+							<input type="button" id="btnAnadir" value="AÑADIR RECINTO"></input>
+							<input type="button" id="btnAnunciarse" value="ANUNCIARSE"></input>
+						</div>
 
-					<input type="button" id="btnAnadir" value="AÑADIR RECINTO"></input>
-					<input type="button" id="btnAnunciarse" value="ANUNCIARSE"></input>
+						<div id="controlCant">
+							<form id="form">
+								<table>
+									<tr>
+										<td></td>
+										<td colspan="3" align="center">Cantidad</td>
+									</tr>
+									<tr>
+										<td>Mujeres</td>
+										<td>
+											<button type="submit" id="mujeresMas" onclick="enviarDato('mujeresMas')">+</button></td>
+										<td id="cantidadMujeres"></td>
+										<td>
+											<button type="submit" id="mujeresMenos" onclick="enviarDato('mujeresMenos')">-</button></td>
+									</tr>
 
-					<a class="button darkblue" href="#">ACTUAL</a>
-					<a class="button darkblue" href="#">+ CERCA</a>
-					<a class="button darkblue" href="#">+ FRECUENTADOS</a>
-					<a class="button darkblue" href="#">+ VISITADOS</a>
+									<tr>
+										<td>Hombres</td>
+										<td><button type="submit" id="hombresMas" onclick="enviarDato('hombresMas')">+</button></td>
+										<td id="cantidadHombres"></td>
+										<td>
+											<button type="submit" id="hombresMenos" onclick="enviarDato('hombresMenos')">-</button></td>
+									</tr>
+								</table>
+							</form>
+						</div>
 
-					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
-					<table id="tabla" >
-						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
-					</table>
+					</div>
+
+					<div class="contenedorDer">
+						
+						<div class="contenedorBuscadorDer">
+
+							<div id="tituloDer"> Tu buscador de diversión por excelencia </div>
+							<div id="subtituloDer"> Busca por nombre del establecimiento, población o cantidad de personas y <p align="center">¡<em><bold>DIVIERTETE</bold></em>!</p></div>
+
+							<div class="buscadorDer">
+								<input type="text" id="busquedaDer" placeholder="Busca tu bar"></input>
+								<input type="button" id="btnBusquedaDer" value="IR"></input>
+							</div>
+						</div>
+
+						<div class="tablaRecintosDer">
+							<div id="tablaDer">				
+
+								<a class="button darkblue" href="#">ACTUAL</a>
+								<a class="button darkblue" href="#">+ CERCA</a>
+								<a class="button darkblue" href="#">+ FRECUENTADOS</a>
+								<a class="button darkblue" href="#">+ VISITADOS</a>
+
+								<h1 id="tituloTablaDer"> RECINTOS + FRECUENTADOS </h1>
+								<table id="tablaDer" >
+									<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
+								</table>
+							</div>
+						</div>
+
+					</div>
 
 				{{else}}
 
-					<h1>Usuario normal</h1>
+					<div class="contenedorBuscador">
 
-					<a class="button darkblue" href="#">ACTUAL</a>
-					<a class="button darkblue" href="#">+ CERCA</a>
-					<a class="button darkblue" href="#">+ FRECUENTADOS</a>
-					<a class="button darkblue" href="#">+ VISITADOS</a>
+						<div id="titulo"> Tu buscador de diversión por excelencia </div>
+						<div id="subtitulo"> Busca por nombre del establecimiento, población o cantidad de personas y <em><bold>DIVIERTETE</bold></em>! </div>
 
-					<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
-					<table id="tabla" >
-						<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
-					</table>
+						<div class="buscador">
+							<input type="text" id="busqueda" placeholder="Busca tu bar"></input>
+							<input type="button" id="btnBusqueda" value="IR"></input>
+						</div>
+					</div>
+
+					<div class="tablaRecintos">
+						<a class="button darkblue" href="#">ACTUAL</a>
+						<a class="button darkblue" href="#">+ CERCA</a>
+						<a class="button darkblue" href="#">+ FRECUENTADOS</a>
+						<a class="button darkblue" href="#">+ VISITADOS</a>
+
+						<h1 id="tituloTabla"> RECINTOS + FRECUENTADOS </h1>
+						<table id="tabla" >
+							<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
+						</table>
+					</div>
 
 				{{/if}}
 				
@@ -240,7 +303,7 @@ $(document).ready(function() {
 
 	//CONEXION OPENSHIFT
 	//var socket = io.connect('http://proyectoos-quienandaahi.rhcloud.com:8000');
-var socket = io.connect();
+	var socket = io.connect();
 		/* PARA EL MENU EN FORMATO MOVIL */
 
 		$(function() {
@@ -278,25 +341,24 @@ var socket = io.connect();
 			dataType: "html",
 			data: formData,
 	
-		success: function(data){
-		
-			if(data=="Password incorrecto" || data=="Usuario incorrecto"){
-				$( "#error" ).text(data);
-			}else{
-				window.location = "/";
-			}
+			success: function(data){
 			
-				
-		},
-		
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			//alert("Status: " + textStatus); alert("Error: " + errorThrown);
-			console.log(XMLHttpRequest.responseText);
+				if(data=="Password incorrecto" || data=="Usuario incorrecto"){
+					$( "#error" ).text(data);
+				}else{
+					window.location = "/";
+				}	
+			},
+			
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				//alert("Status: " + textStatus); alert("Error: " + errorThrown);
+				console.log(XMLHttpRequest.responseText);
 				$( "#contentDiv" ).html(XMLHttpRequest.responseText);
 			}
 		});
 	});
-//OSCURECER
+
+ 	//OSCURECER
 	$( "#form_registro" ).submit(function( event ) {
 		
 		/* Stop form from submitting normally */
@@ -306,7 +368,6 @@ var socket = io.connect();
 		$("#signup").val($("#signup").val().trim());
 		if ($("#signup").val()==''){
 			$("#errorreg").text("Inserta usuario");
-			
 		}
 
 		else if ($("#signup").val().length < 6 || $("#signup").val().length > 15){
@@ -331,43 +392,39 @@ var socket = io.connect();
 			dataType: "html",
 			data: formData,
 	
-		success: function(data){
+			success: function(data){
 			
+				if(data=="ok"){
+					$( "#errorreg" ).text("");
+					$("#usuarioreg").val($("#signup").val());
+					$("#emailreg").val($("#email").val());
+					$("div#panel").slideUp("slow");
+					$("#toggle a").toggle();
+					$(".contenido").fadeTo("slow" , 0.3, function() {
+		 				$("#central").css("z-index" , "1");
+		   				$("#central").fadeTo("fast" , 1);
+		   				$(".contenido").click(function(){
+		   		 			$("#central").css("z-index" , "-1");
+							$(".contenido").fadeTo("slow" , 1);
+		   		 			$("#central").fadeTo("fast" , 0);
 
-			if(data=="ok"){
-				$( "#errorreg" ).text("");
-				$("#usuarioreg").val($("#signup").val());
-				$("#emailreg").val($("#email").val());
-				$("div#panel").slideUp("slow");
-				$("#toggle a").toggle();
-				$(".contenido").fadeTo("slow" , 0.3, function() {
-	 				$("#central").css("z-index" , "1");
-	   				$("#central").fadeTo("fast" , 1);
-	   				$(".contenido").click(function(){
-	   		 			$("#central").css("z-index" , "-1");
-						$(".contenido").fadeTo("slow" , 1);
-	   		 			$("#central").fadeTo("fast" , 0);
-
-   		 			});
-  				});
-			}else{
-				$( "#errorreg" ).text(data);
-			}
-			
-				
-		},
+	   		 			});
+	  				});
+				}else{
+					$( "#errorreg" ).text(data);
+				}
+			},
 		
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			//alert("Status: " + textStatus); alert("Error: " + errorThrown);
-			console.log(XMLHttpRequest.responseText);
-				$( "#contentDiv" ).html(XMLHttpRequest.responseText);
-			}
-		});
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				//alert("Status: " + textStatus); alert("Error: " + errorThrown);
+				console.log(XMLHttpRequest.responseText);
+					$( "#contentDiv" ).html(XMLHttpRequest.responseText);
+				}
+			});
 		}
-			
-		
 	});
-$(".bt_register").click(function(){
+	
+	$(".bt_register").click(function(){
 
 	});	
 	// Expand Panel
@@ -386,47 +443,93 @@ $(".bt_register").click(function(){
 	});	
 
 	
-// SCRIPT PARA EL BUSCADOR Y AUTOCOMPLETAR
+	// SCRIPT PARA EL BUSCADOR Y AUTOCOMPLETAR
 
-$("#busqueda").geocomplete();
- 
-
-// TABLA DATOS RECINTOS
-
-$.getJSON( "/listarecintos", function(data) {
+	$("#busqueda").geocomplete();
 	 
-   
-   var texto="";
-   
-var cont2 = 1;
-   $.each( data, function( cont, val ) {
-      
-      texto+= "<tbody><tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr></tbody>" ;
-    cont2++;
-      cont++;
-    
-    });
- 
-   	console.log(texto);
-	$("#tabla").append(texto);
+
+	// TABLA DATOS RECINTOS
+
+	$.getJSON( "/listarecintos", function(data) {
+		 
+	   	var texto="";
+	   
+		var cont2 = 1;
+	   	
+	   	$.each( data, function( cont, val ) {
+	      
+	      texto+= "<tbody><tr><td id='" + cont2 + "'>" + val.Nombre + "</td><td id='Mujeres" + cont2 + "'>" + val.Mujeres + "</td><td id='Hombres" + cont2 + "'>" + val.Hombres + "</td></tr></tbody>" ;
+	      
+	      cont2++;
+	      cont++;
+	    
+	    });
+	 
+	   	console.log(texto);
+		$("#tabla").append(texto);
+		$("#tablaDer").append(texto);
 	
-  });
+  	});
 
 	
 		var socket = io();
+  		
+  		socket.on('cambiorecinto', function(msg){
+	  		var nombre=msg.columna+msg.id;
+	  		
+	  		if(msg.columna == "Mujeres"){
+		 		$("#"+nombre).text(msg.numero[0].Mujeres);
+		 	}else{
+		 		$("#"+nombre).text(msg.numero[0].Hombres);
+		 	}
+ 	 	});
+
+  	/* TABLA + Y - PARA GESTIONAR RECINTOS */
+
+  /*	var recinto = {{recinto}};
+	console.log(recinto);
+	var mujeres="";
+	var hombres="";
+	var socket = io();
+	
+
+	  
+	function cantidades(){
+		
+		var cantidades=$.getJSON("/cantidadRecinto/"+recinto,function(data){
+		 
+ 			mujeres = data[0].Mujeres;
+ 			hombres = data[0].Hombres;
+   
+
+			document.getElementById("cantidadMujeres").innerHTML = mujeres;	
+			document.getElementById("cantidadHombres").innerHTML = hombres;	
+		
+		});	
+
+
+	}
+
+	cantidades();
+
+	function enviarDato(dato){
+
+		$.post("/modificarCantidadRecinto/" + dato + "/" + recinto);
+
+	}
+	
   	socket.on('cambiorecinto', function(msg){
-  		var nombre=msg.columna+msg.id;
-  		if(msg.columna == "Mujeres")
-  			{
-	 	$("#"+nombre).text(msg.numero[0].Mujeres);
-	 }else{
-	 	$("#"+nombre).text(msg.numero[0].Hombres);
-	 }
- 	 });
+  		if(msg.columna == "Mujeres"){
+  			document.getElementById("cantidadMujeres").innerHTML = msg.numero;
+  		}
+  	 	else{
+			document.getElementById("cantidadHombres").innerHTML = msg.numero;
+		}	
+ 	});
 
+	*/
 
- function validar_email(valor)
-	{
+ 	function validar_email(valor){
 		// creamos nuestra regla con expresiones regulares.
 		var filter = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
 		// utilizamos test para comprobar si el parametro valor cumple la regla

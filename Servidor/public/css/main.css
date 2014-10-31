@@ -50,7 +50,7 @@ h2{
 #titulo{
 	position: absolute;
 	
-	left:34%;
+	left:28%;
 	top:20%;
 	font: 30px bold Helvetica, serif;
 	font-weight: 900;
@@ -60,7 +60,7 @@ h2{
 #subtitulo{
 		position: absolute;
 
-	left:28%;
+	left:21%;
 	top:26%;
 	font: 20px bold Helvetica, serif;
 	font-weight: 500;
@@ -326,7 +326,7 @@ h2{
 			margin-bottom: 10px;
 			position: absolute;
 			left:34.5%;
-			top:33%;
+			top:31.5%;
 			border: solid 1px #d2d2d2;
 			padding: 3px 5px;
 			width: 30%;
@@ -466,6 +466,7 @@ h2{
 .button { /* clase general */
   border: 1px solid #dedede;
   border-radius: 3px;
+  margin-top: 25px; 
   color: #555;
   display: inline-block;
   font: bold 12px/12px HelveticaNeue, Arial;
@@ -474,10 +475,10 @@ h2{
 }
 
 .button.darkblue{
-border-color: #a2afb8 #8696a1 #6f818f;
-color: #515f6a !important;
-text-shadow: 0 1px 0 #c4d0d9;
-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
+	border-color: #a2afb8 #8696a1 #6f818f;
+	color: #515f6a !important;
+	text-shadow: 0 1px 0 #c4d0d9;
+	box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
 	background: -webkit-linear-gradient(top, #becbd6, #88a1b4);
 
 }
@@ -494,3 +495,217 @@ box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
     background: linear-gradient(top,  #efefef, #f8f8f8);
   
 }
+
+/* PAGINA DE LOS PROPIETARIOS DE ALGUN RECINTO */
+
+.index{
+	width: 100%;
+}
+
+/* INDEX IZQUIERDO */
+
+.contenedorIzq{
+	width: 50%;
+	float: left;
+}
+
+.contendedorDer{
+	width: 50%;
+	float: left;
+}
+
+#titProp{
+	position: absolute;
+	top: 13%;
+	left: 2%;
+	margin: 30px;
+	font: 20px 900 Helvetica, sans-serif;
+	color: black;
+}
+
+#btnConf{
+	float: left;
+	margin: 25px;
+}
+
+#btnAnadir{
+	position: absolute;
+	top: 15%;
+	left: 25%;
+}
+
+#btnAnunciarse{
+	position: absolute;
+	top: 20%;
+	left: 25%;
+}
+
+#controlCant{
+	position: absolute;
+	top: 20%;
+	left: 2%;
+	margin: 30px;
+}
+
+/* INDEX DERECHO */
+
+.buscadorDer{
+	margin-bottom: 10px;
+	position: absolute;
+	left:58%;
+	top:31%;
+	border: solid 1px #d2d2d2;
+	padding: 3px 5px;
+	width: 30%;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	-webkit-box-shadow: 0 1px 0px rgba(0,0,0,.1);
+	-moz-box-shadow: 0 1px 0px rgba(0,0,0,.1);
+	box-shadow: 0 1px 0px rgba(0,0,0,.1);
+	background: #f1f1f1;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+}
+
+#busquedaDer{
+	background: #fff;
+	padding: 6px 6px 6px 8px;
+	width: 83%;
+	border: solid 1px #bcbbbb;
+	outline: none;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.2);
+	font: normal 12px/100% Arial, Helvetica, sans-serif;
+}
+
+#btnBusquedaDer{
+	color: #fff;
+	border: solid 1px #494949;
+	font-size: 11px;
+	height: 27px;
+	width: 27px;
+	text-shadow: 0 1px 1px rgba(0,0,0,.6);
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	background: #5f5f5f;
+	background: -webkit-gradient(linear, left top, left bottom, from(#9e9e9e), to(#454545));
+	background: -moz-linear-gradient(top,  #9e9e9e,  #454545);
+}
+
+#tituloDer{
+	position: absolute;
+	left:50%;
+	top:18%;
+	font: 30px bold Helvetica, serif;
+	font-weight: 900;
+	color: black;
+	
+}
+#subtituloDer{
+	position: absolute;
+	left:45%;
+	top:22%;
+	font: 20px bold Helvetica, serif;
+	font-weight: 500;
+	color: black;
+	
+}
+
+/* DISEÑO TABLA DERECHA "RESPONSIVE" */
+
+		div.tablaRecintosDer{
+			margin-bottom: 10px;
+			position: absolute;
+			text-align: center;
+			width: 30%;
+			top:37%;
+			left: 58.5%;
+		}
+
+		.tablaRecintosDer input{
+			margin-top: 30px;
+		}
+
+		#tituloTablaDer{
+			font: 24px bold Helvetica, serif;
+			font-weight: 900;
+			text-align: center;
+		}
+
+		table { 
+		  width: 100%; 
+		  border:1px; 
+		 
+		  border-collapse: collapse; 
+		}
+		/* Zebra striping */
+		tr:nth-of-type(odd) { 
+		  background: #888; 
+		}
+		th { 
+		  background: #333; 
+		  color: white; 
+		  font-weight: bold; 
+		
+		}
+		td, th { 
+		  padding: 6px; 
+		  border: 1px solid #ccc; 
+		  text-align: center; 
+		}
+
+		@media only screen and (max-width: 760px),(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+		/* Force table to not be like tables anymore */
+		table, thead, tbody, th, td, tr { 
+			display: block; 
+		}
+		
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr { 
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		
+		tr { border: 1px solid #ccc; }
+		
+		td { 
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee; 
+			position: relative;
+			padding-left: 50%; 
+		}
+		
+		td:before { 
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 6px;
+			left: 6px;
+			width: 45%; 
+			padding-right: 10px; 
+			white-space: nowrap;
+		}
+		
+		/*
+		Label the data
+		*/
+		td:nth-of-type(1):before { content: "Recinto"; }
+		td:nth-of-type(2):before { content: "Mujeres"; }
+		td:nth-of-type(3):before { content: "Hombres"; }/*
+		td:nth-of-type(4):before { content: "Favorite Color"; }
+		td:nth-of-type(5):before { content: "Wars of Trek?"; }
+		td:nth-of-type(6):before { content: "Porn Name"; }
+		td:nth-of-type(7):before { content: "Date of Birth"; }
+		td:nth-of-type(8):before { content: "Dream Vacation City"; }
+		td:nth-of-type(9):before { content: "GPA"; }
+		td:nth-of-type(10):before { content: "Arbitrary Data"; }*/
+	}
