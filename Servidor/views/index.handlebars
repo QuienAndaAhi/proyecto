@@ -129,7 +129,7 @@
 						</div>
 
 						<div id="controlCant">
-							<form id="form">
+							<form id="formIzq">
 								<table>
 									<tr>
 										<td></td>
@@ -138,18 +138,18 @@
 									<tr>
 										<td>Mujeres</td>
 										<td>
-											<button type="submit" id="mujeresMas" onclick="enviarDato('mujeresMas')">+</button></td>
+											<button type="submit" id="mujeresMas">+</button></td>
 										<td id="cantidadMujeres"></td>
 										<td>
-											<button type="submit" id="mujeresMenos" onclick="enviarDato('mujeresMenos')">-</button></td>
+											<button type="submit" id="mujeresMenos" >-</button></td>
 									</tr>
 
 									<tr>
 										<td>Hombres</td>
-										<td><button type="submit" id="hombresMas" onclick="enviarDato('hombresMas')">+</button></td>
+										<td><button type="submit" id="hombresMas" >+</button></td>
 										<td id="cantidadHombres"></td>
 										<td>
-											<button type="submit" id="hombresMenos" onclick="enviarDato('hombresMenos')">-</button></td>
+											<button type="submit" id="hombresMenos">-</button></td>
 									</tr>
 								</table>
 							</form>
@@ -171,8 +171,7 @@
 						</div>
 
 						<div class="tablaRecintosDer">
-							<div id="tablaDer">				
-
+					
 								<a class="button darkblue" href="#">ACTUAL</a>
 								<a class="button darkblue" href="#">+ CERCA</a>
 								<a class="button darkblue" href="#">+ FRECUENTADOS</a>
@@ -182,7 +181,6 @@
 								<table id="tablaDer" >
 									<thead><tr><th>Recintos</th><th>Mujeres</th><th>Hombres</th></tr></thead>
 								</table>
-							</div>
 						</div>
 
 					</div>
@@ -424,9 +422,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".bt_register").click(function(){
-
-	});	
 	// Expand Panel
 	$("#open").click(function(){
 		$("div#panel").slideDown("slow");
@@ -471,29 +466,60 @@ $(document).ready(function() {
 	
   	});
 
-	
-		var socket = io();
-  		
-  		socket.on('cambiorecinto', function(msg){
-	  		var nombre=msg.columna+msg.id;
-	  		
-	  		if(msg.columna == "Mujeres"){
-		 		$("#"+nombre).text(msg.numero[0].Mujeres);
-		 	}else{
-		 		$("#"+nombre).text(msg.numero[0].Hombres);
-		 	}
- 	 	});
+		{{#unless recinto}}
+
+	  		socket.on('cambiorecinto', function(msg){
+		  		var nombre=msg.columna+msg.id;
+		  		
+		  		if(msg.columna == "Mujeres"){
+			 		$("#"+nombre).text(msg.numero[0].Mujeres);
+			 	}else{
+			 		$("#"+nombre).text(msg.numero[0].Hombres);
+			 	}
+	 	 	});
+ 	 	{{/unless}}
 
   	/* TABLA + Y - PARA GESTIONAR RECINTOS */
 
-  /*	var recinto = {{recinto}};
-	console.log(recinto);
 	var mujeres="";
 	var hombres="";
-	var socket = io();
-	
 
-	  
+	{{#if recinto}}
+
+		var recinto = {{recinto}};
+		
+		cantidades();
+
+		$("#mujeresMenos").click(function(){
+			enviarDato("mujeresMenos");
+		});
+
+		$("#mujeresMas").click(function(){
+			enviarDato("mujeresMas");
+		});
+
+		$("#hombresMenos").click(function(){
+			enviarDato("hombresMenos");
+		});
+
+		$("#hombresMas").click(function(){
+			enviarDato("hombresMas");
+		});
+
+		socket.on('cambiorecinto', function(msg){
+			var nombre=msg.columna+msg.id;
+  		if(msg.columna == "Mujeres"){
+  			$("#"+nombre).text(msg.numero[0].Mujeres);
+  			document.getElementById("cantidadMujeres").innerHTML = msg.numero;
+  		}
+  	 	else{
+  	 		$("#"+nombre).text(msg.numero[0].Hombres);
+			document.getElementById("cantidadHombres").innerHTML = msg.numero;
+		}	
+ 	});
+
+	{{/if}}
+
 	function cantidades(){
 		
 		var cantidades=$.getJSON("/cantidadRecinto/"+recinto,function(data){
@@ -510,24 +536,28 @@ $(document).ready(function() {
 
 	}
 
-	cantidades();
-
 	function enviarDato(dato){
 
-		$.post("/modificarCantidadRecinto/" + dato + "/" + recinto);
-
+		$.ajax({
+			type: "POST",
+			url: "/modificarCantidadRecinto/" + dato + "/" + recinto,
+			dataType: "html",
+			data: "formData",
+	
+			success: function(data){
+				console.log(data);
+			},
+		
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				
+				console.log(XMLHttpRequest.responseText);
+					console.log("mal");
+				}
+			});
 	}
 	
-  	socket.on('cambiorecinto', function(msg){
-  		if(msg.columna == "Mujeres"){
-  			document.getElementById("cantidadMujeres").innerHTML = msg.numero;
-  		}
-  	 	else{
-			document.getElementById("cantidadHombres").innerHTML = msg.numero;
-		}	
- 	});
+  	
 
-	*/
 
  	function validar_email(valor){
 		// creamos nuestra regla con expresiones regulares.

@@ -174,11 +174,6 @@ app.get('/mapa', function(req, res){
 });
 
 // PAGINA RECINTO
-app.get('/', function(req, res){
-  var recinto = {recinto: "1"};
-  res.render('index', recinto);
-
-});
 
 // ENCRIPTAR CONTRASEÑA EN NODE
 
@@ -310,16 +305,25 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
 
   // Raw query
   db.query('UPDATE Recintos SET ' + columna + ' = ' + columna + valor +' WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
-    // no errors
 
-   // res.sendFile(__dirname + '/ClienteMedio/index.html');
+       db.query('SELECT '+ columna+' FROM Recintos WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
+          // no errors
+            //io.sockets.emit('cambiorecinto', {"id":req.params.recinto,"columna":columna, "numero": rows});
 
-  });
- db.query('SELECT '+ columna+' FROM Recintos WHERE idRecintos="'+req.params.recinto+'";').success(function(rows){
-    // no errors
-      io.sockets.emit('cambiorecinto', {"id":req.params.recinto,"columna":columna, "numero": rows});
-      console.log("kk")
-  });
+            console.log("/modificarCantidadRecinto/");
+            console.log(rows);
+
+             res.json({"msg":"ok"});
+        }).error(function (err){  
+  
+            res.send("Error");
+        });
+
+  }).error(function (err){  
+  
+      res.send("Error");
+    });
+
 });
 
 
