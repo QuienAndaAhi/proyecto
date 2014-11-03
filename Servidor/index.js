@@ -199,9 +199,14 @@ app.post('/log', function(req, res){
         db.query('SELECT idRecinto FROM Login WHERE idUsuarios="'+ rows[0].idUsuarios+'";').success(function(rowsa){
           // no errors
           var idRec = rowsa[0].idRecinto.toString();
-          req.session.usuario={ "recinto": idRec ,"usu": usuario,"propietario": dueno };
+           db.query('SELECT Nombre FROM Recintos WHERE idRecintos="'+ idRec +'";').success(function(rowsb){
+             req.session.usuario={ "recinto": idRec ,"usu": usuario,"propietario": dueno , "NomRec": rowsb[0].Nombre.toString()};
+            res.send("ok");
+           
+          
+          });
 
-          res.send("ok");
+          
         });
         }else{
            req.session.usuario={ "usu": usuario};
@@ -313,7 +318,7 @@ app.post('/modificarCantidadRecinto/:dato/:recinto', function(req, res) {
             console.log("/modificarCantidadRecinto/");
             console.log(rows);
 
-             res.json({"msg":"ok"});
+             res.send("posa");
         }).error(function (err){  
   
             res.send("Error");
