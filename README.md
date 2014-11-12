@@ -1,20 +1,36 @@
-#Proyecto ¿Quien anda ahi? Alvaro y Ruben
-=================================================================================================================================
+# node-js-getting-started
 
-  Va a ser una aplicacion que guardara en un servidor el numero de mujeres y hombre que hay en cada bar. Para ello tendra dos aplicaciones cliente: 
-  
-  - La primera, sera para el dueño del bar que tendra que tener algun empleado encargado de añadir la cantidad de personas y sexo que entran en su bar. 
-  
-  - La segunda, sera para el cliente final que mirara en su movil a que bar quiere ir y que cantidad de personas hay.
+A barebones Node.js app using [Express 4](http://expressjs.com/).
 
-=================================================================================================================================
+This application support the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
 
-Empezamos con el servidor de la aplicacion para contar gente.
-phonegap
+## Running Locally
 
-FUNCIONA:
-  - Conexion con la base de datos.
-  - Envia y recibe peticiones.
-  - Suma y resta personas.
-  - Enseña las personas que hay en cada bar.
+Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
 
+```sh
+$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
+$ cd node-js-getting-started
+$ npm install
+$ npm start
+```
+
+Your app should now be running on [localhost:5000](http://localhost:5000/).
+
+## Deploying to Heroku
+
+```
+$ heroku create
+$ git push heroku master
+$ heroku open
+```
+
+## Documentation
+
+For more information about using Node.js on Heroku, see these Dev Center articles:
+
+- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
+- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
+- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
+- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)

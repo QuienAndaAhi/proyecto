@@ -1,18 +1,94 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install' ]
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', 'debug@1.0.2' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.33
 4 verbose node symlink /usr/bin/node
-5 error install Couldn't read dependencies
-6 error package.json ENOENT, open '/home/zubiri/Escritorio/proyecto/package.json'
-6 error package.json This is most likely not a problem with npm itself.
-6 error package.json npm can't find a package.json file in your current directory.
-7 error System Linux 3.2.0-69-generic-pae
-8 error command "/usr/bin/node" "/usr/bin/npm" "install"
-9 error cwd /home/zubiri/Escritorio/proyecto
-10 error node -v v0.10.33
-11 error npm -v 1.4.28
-12 error path /home/zubiri/Escritorio/proyecto/package.json
-13 error code ENOPACKAGEJSON
-14 error errno 34
-15 verbose exit [ 34, true ]
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'debug@1.0.2', null ]
+7 verbose cache add name=undefined spec="debug@1.0.2" args=["debug@1.0.2",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'debug@1.0.2',
+8 verbose parsed url   path: 'debug@1.0.2',
+8 verbose parsed url   href: 'debug@1.0.2' }
+9 verbose cache add name="debug" spec="1.0.2" args=["debug","1.0.2"]
+10 verbose parsed url { protocol: null,
+10 verbose parsed url   slashes: null,
+10 verbose parsed url   auth: null,
+10 verbose parsed url   host: null,
+10 verbose parsed url   port: null,
+10 verbose parsed url   hostname: null,
+10 verbose parsed url   hash: null,
+10 verbose parsed url   search: null,
+10 verbose parsed url   query: null,
+10 verbose parsed url   pathname: '1.0.2',
+10 verbose parsed url   path: '1.0.2',
+10 verbose parsed url   href: '1.0.2' }
+11 verbose addNamed [ 'debug', '1.0.2' ]
+12 verbose addNamed [ '1.0.2', '1.0.2' ]
+13 silly lockFile f5e643bf-debug-1-0-2 debug@1.0.2
+14 verbose lock debug@1.0.2 /home/zubiri/.npm/f5e643bf-debug-1-0-2.lock
+15 verbose request where is /debug
+16 verbose request registry https://registry.npmjs.org/
+17 verbose request id e4ca20f185d4d285
+18 verbose url raw /debug
+19 verbose url resolving [ 'https://registry.npmjs.org/', './debug' ]
+20 verbose url resolved https://registry.npmjs.org/debug
+21 verbose request where is https://registry.npmjs.org/debug
+22 info trying registry request attempt 1 at 12:16:28
+23 verbose etag "6XAF04JEIUAY679NV7GJMKWPQ"
+24 http GET https://registry.npmjs.org/debug
+25 http 304 https://registry.npmjs.org/debug
+26 silly registry.get cb [ 304,
+26 silly registry.get   { date: 'Wed, 05 Nov 2014 11:16:28 GMT',
+26 silly registry.get     server: 'Apache',
+26 silly registry.get     via: '1.1 varnish',
+26 silly registry.get     'last-modified': 'Wed, 05 Nov 2014 11:16:28 GMT',
+26 silly registry.get     'cache-control': 'max-age=60',
+26 silly registry.get     etag: '"6XAF04JEIUAY679NV7GJMKWPQ"',
+26 silly registry.get     age: '45',
+26 silly registry.get     'x-served-by': 'cache-lhr6324-LHR',
+26 silly registry.get     'x-cache': 'HIT',
+26 silly registry.get     'x-cache-hits': '1',
+26 silly registry.get     'x-timer': 'S1415186188.632156,VS0,VE1',
+26 silly registry.get     vary: 'Accept',
+26 silly registry.get     'content-length': '0',
+26 silly registry.get     'keep-alive': 'timeout=10, max=50',
+26 silly registry.get     connection: 'Keep-Alive' } ]
+27 verbose etag https://registry.npmjs.org/debug from cache
+28 silly lockFile 0730548e--npmjs-org-debug-debug-1-0-2-tgz https://registry.npmjs.org/debug/-/debug-1.0.2.tgz
+29 verbose lock https://registry.npmjs.org/debug/-/debug-1.0.2.tgz /home/zubiri/.npm/0730548e--npmjs-org-debug-debug-1-0-2-tgz.lock
+30 verbose addRemoteTarball [ 'https://registry.npmjs.org/debug/-/debug-1.0.2.tgz',
+30 verbose addRemoteTarball   '3849591c10cce648476c3c7c2e2e3416db5963c4' ]
+31 info retry fetch attempt 1 at 12:16:28
+32 verbose fetch to= /tmp/npm-3098-BlxAmWmw/registry.npmjs.org/debug/-/debug-1.0.2.tgz
+33 http GET https://registry.npmjs.org/debug/-/debug-1.0.2.tgz
+34 http 200 https://registry.npmjs.org/debug/-/debug-1.0.2.tgz
+35 silly lockFile 0730548e--npmjs-org-debug-debug-1-0-2-tgz https://registry.npmjs.org/debug/-/debug-1.0.2.tgz
+36 silly lockFile 0730548e--npmjs-org-debug-debug-1-0-2-tgz https://registry.npmjs.org/debug/-/debug-1.0.2.tgz
+37 silly lockFile f5e643bf-debug-1-0-2 debug@1.0.2
+38 silly lockFile f5e643bf-debug-1-0-2 debug@1.0.2
+39 error Error: EACCES, mkdir '/home/zubiri/.npm/debug/1.0.2'
+39 error  { [Error: EACCES, mkdir '/home/zubiri/.npm/debug/1.0.2']
+39 error   errno: 3,
+39 error   code: 'EACCES',
+39 error   path: '/home/zubiri/.npm/debug/1.0.2',
+39 error   parent: 'Iturtxo' }
+40 error Please try running this command again as root/Administrator.
+41 error System Linux 3.2.0-70-generic-pae
+42 error command "/usr/bin/node" "/usr/bin/npm" "install" "debug@1.0.2"
+43 error cwd /media/grande/quienandaahi/proyecto
+44 error node -v v0.10.33
+45 error npm -v 1.4.28
+46 error path /home/zubiri/.npm/debug/1.0.2
+47 error code EACCES
+48 error errno 3
+49 error stack Error: EACCES, mkdir '/home/zubiri/.npm/debug/1.0.2'
+50 verbose exit [ 3, true ]
